@@ -1,0 +1,5 @@
+[info]
+chain_name = "CHAIN_NAME"
+rpc_list   = ["https://rpc-bandchain-ia.cosmosia.notional.ventures:443",
+              "https://band-rpc.ibs.team:443",
+              "http://rpc.laozi1.bandchain.org:80"]
