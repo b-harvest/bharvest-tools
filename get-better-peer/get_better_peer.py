@@ -27,10 +27,14 @@ logging.Formatter.converter = timetz
 logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', datefmt = '%Y-%m-%d %H:%M:%S', level=logging.INFO)
 
 def get_location(addr: str):
-  ip_address = socket.gethostbyname(addr)
-  time.sleep(10)
-  response = requests.get(f'https://ipapi.co/{ip_address}/json/').json()
-  return [response.get("country_name"), response.get("region"), response.get("city"), response.get("latitude"), response.get("longitude")]
+  try:
+    ip_address = socket.gethostbyname(addr)
+    time.sleep(10)  # Not sure why you're sleeping here, but keeping it for now
+    response = requests.get(f'https://ipapi.co/{ip_address}/json/').json()
+    return [response.get("country_name"), response.get("region"), response.get("city"), response.get("latitude"), response.get("longitude")]
+  except socket.gaierror as e:
+      print(f"Error resolving hostname {addr}: {e}")
+      return None  # Or handle the error in some other way
 
 def get_ping(addr: str):
   try:
